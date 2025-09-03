@@ -68,9 +68,11 @@ class advMockController extends baseController {
       for (let i = 0, len = result.length; i < len; i++) {
         let userinfo = await this.userModel.findById(result[i].uid);
         result[i] = result[i].toObject();
-        // if (userinfo) {
-        result[i].username = userinfo.username;
-        // }
+        if (userinfo) {
+          result[i].username = userinfo.username;
+        } else {
+          result[i].username = "用户不存在";
+        }
       }
 
       ctx.body = yapi.commons.resReturn(result);
